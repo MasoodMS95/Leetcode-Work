@@ -11,7 +11,6 @@ var merge = function(nums1, m, nums2, n) {
     let currIndex = (m+n)-1
     let valToPlace;
     while(currIndex >= 0){
-        console.log(`CURRENT INDEX: ${currIndex}`)
         if(largestIndexRight < 0){
             break;
         }
@@ -19,18 +18,14 @@ var merge = function(nums1, m, nums2, n) {
             valToPlace = nums1[largestIndexLeft];
             nums1[largestIndexLeft] = 0;
             largestIndexLeft--;
-            console.log("LEFT VAL IS LARGER")
         }
         else{
             valToPlace = nums2[largestIndexRight];
             largestIndexRight--;
-            console.log("RIGHT VAL IS LARGER")
         }
-        console.log(`COMPARING CURRENT INDEX VALUE ${nums1[currIndex]} TO ${valToPlace}`)
         if(valToPlace > nums1[currIndex] || nums1[currIndex] === 0){
             nums1[currIndex] = valToPlace;
         }
-        console.log(`Currently sorted array: ${nums1}`)
         currIndex--;
     }
 };
