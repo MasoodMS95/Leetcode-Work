@@ -24,6 +24,5 @@ var removeElement = function(nums, val) {
         index++;
         swapIndex--;
     }
-    console.log(nonVal)
     return nonVal
 };
