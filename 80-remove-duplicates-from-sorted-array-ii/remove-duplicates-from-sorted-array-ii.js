@@ -4,7 +4,6 @@
  */
 var removeDuplicates = function(nums) {
     let i = 2, j = 2;
-    let currCount = 1;
     if(nums.length===2) return nums.length;
     while(j < nums.length){
         if(nums[i-2] !== nums[j]){
