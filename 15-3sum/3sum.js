@@ -3,24 +3,32 @@
  * @return {number[][]}
  */
 var threeSum = function(nums) {
-    nums.sort((a,b)=>a-b)
-    let found = [];
-    for(let x = 0; x < nums.length-2; x++){
-         if (x > 0 && nums[x] === nums[x - 1]) continue;
-        let left = x+1, right = nums.length - 1;
-        while(left < right){
-            value = nums[x] + nums[left] + nums[right];
-            currArr = [nums[x], nums[left], nums[right]]
-            if(value === 0){
-                while(left < right && nums[left] === nums[left+1]) left++;
-                while(left < right && nums[right] === nums[right-1]) right--;
-                found.push(currArr)
-                left++;
-                right--;
+    nums.sort((a,b)=>a-b);
+    let set = new Set();
+    let foundSums = [];
+    for(let x = 1; x < nums.length - 1; x++){
+        let left = x-1;
+        let right = x+1;
+        while(left >= 0 && right < nums.length){
+            let sum = nums[left] + nums[x] + nums[right];
+            if(sum === 0){
+                let key = [nums[left], nums[x], nums[right]].toString();
+                if(set.has(key)){
+                    left--;
+                    right++;
+                }
+                else{
+                    set.add(key)
+                    foundSums.push([nums[left], nums[x], nums[right]])
+                }
             }
-            else if (value > 0){right--;}
-            else{left++;}
+            else if(sum < 0){
+                right++;
+            }
+            else{
+                left--;
+            }
         }
     }
-    return found;
+    return foundSums;
 };
