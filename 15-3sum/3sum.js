@@ -13,14 +13,12 @@ var threeSum = function(nums) {
             let sum = nums[left] + nums[x] + nums[right];
             if(sum === 0){
                 let key = [nums[left], nums[x], nums[right]].toString();
-                if(set.has(key)){
-                    left--;
-                    right++;
-                }
-                else{
+                if(!set.has(key)){
                     set.add(key)
                     foundSums.push([nums[left], nums[x], nums[right]])
                 }
+                left--;
+                right++;
             }
             else if(sum < 0){
                 right++;
