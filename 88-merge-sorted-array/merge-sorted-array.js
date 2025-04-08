@@ -6,22 +6,25 @@
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 var merge = function(nums1, m, nums2, n) {
-    let n1Ind = m-1;
-    let n2Ind = n-1;
-    let currIndex = nums1.length-1;
-    if(n === 0){return;}
+    let largestIndexLeft = m-1;
+    let largestIndexRight = n-1;
+    let currIndex = (m+n)-1
+    let valToPlace;
     while(currIndex >= 0){
-        if(nums1[currIndex] === 0){
-            if(n1Ind < 0 || nums2[n2Ind] > nums1[n1Ind]){
-                console.log(`Inserting ${nums2[n2Ind]}`)
-                nums1[currIndex] = nums2[n2Ind];
-                n2Ind--;
-            }
-            else{
-                nums1[currIndex] = nums1[n1Ind];
-                nums1[n1Ind] = 0;
-                n1Ind--;
-            }
+        if(largestIndexRight < 0){
+            break;
+        }
+        if(nums1[largestIndexLeft] > nums2[largestIndexRight]){
+            valToPlace = nums1[largestIndexLeft];
+            nums1[largestIndexLeft] = 0;
+            largestIndexLeft--;
+        }
+        else{
+            valToPlace = nums2[largestIndexRight];
+            largestIndexRight--;
+        }
+        if(valToPlace > nums1[currIndex] || nums1[currIndex] === 0){
+            nums1[currIndex] = valToPlace;
         }
         currIndex--;
     }
