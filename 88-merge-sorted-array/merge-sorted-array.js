@@ -23,7 +23,7 @@ var merge = function(nums1, m, nums2, n) {
             valToPlace = nums2[largestIndexRight];
             largestIndexRight--;
         }
-        if(valToPlace > nums1[currIndex] || nums1[currIndex] === 0){
+        if(nums1[currIndex] === 0){
             nums1[currIndex] = valToPlace;
         }
         currIndex--;
