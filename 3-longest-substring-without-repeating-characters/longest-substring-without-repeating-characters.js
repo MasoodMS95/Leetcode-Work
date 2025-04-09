@@ -3,18 +3,16 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    if(s.length === 1){
-        return 1;
-    }
-    let longestSubString = 0;
-    for(let x = 0; x < s.length; x++){
-        let y = x+1;
-        let currString = s[x];
-        while(y <= s.length-1 && !currString.includes(s[y])){
-            currString = currString.concat(s[y]);
+    let longestCount = 0;
+    if(s.length === 1) return 1;
+    for(let x = 0; x < s.length - 1; x++){
+        let subString = new Set();
+        let y = x;
+        while(y < s.length && !subString.has(s[y])){
+            subString.add(s[y]);
             y++;
         }
-        longestSubString = currString.length > longestSubString ? currString.length : longestSubString;
+        if(subString.size > longestCount) longestCount = subString.size;
     }
-    return longestSubString;
+    return longestCount;
 };
