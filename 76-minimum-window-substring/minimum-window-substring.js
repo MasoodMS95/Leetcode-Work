@@ -4,43 +4,44 @@
  * @return {string}
  */
 var minWindow = function(s, t) {
-    let minString = "";
-    let start = 0;
-    let currIndex = 0;
+    let shortest = "";
+    if(t.length > s.length){
+        return shortest;
+    }
+
+    have = {};
+    wants = {};
+    for(let char of t){
+        wants[char] = (wants[char] || 0) + 1
+        have[char] = 0;
+    }
     
-    let needChars = {};
-    for(char of t){
-        needChars[char] = needChars[char] ? needChars[char] + 1 : 1;
-    }
-    let needCount = Object.keys(needChars).length;
-
-    let haveChars = {};
-    for(char of t){
-        haveChars[char] = 0;
-    }
-    let haveCount = 0;
-
-    while(currIndex < s.length){
-        let cChar = s[currIndex];
-        if(t.includes(cChar)){
-            haveChars[cChar]++;
-            if(haveChars[cChar] === needChars[cChar]){
-                haveCount++;
+    let matchGoal = Object.keys(wants).length;
+    let matchCurr = 0;
+    let start = 0;
+    let curr = 0;
+    while(curr < s.length){
+        // console.log(`CurrIndex = ${curr}`);
+        if(wants[s[curr]]){
+            have[s[curr]]++;
+            if(wants[s[curr]] === have[s[curr]]){
+                matchCurr++;
+                // console.log(`Found a match! New match: ${matchCurr}`)
             }
         }
-        while(haveCount === needCount){
-            let checkString = s.slice(start, currIndex+1);
-            
-            if(minString.length > checkString.length || minString.length === 0){
-                minString = checkString;
-            }
-            if(t.includes(s[start])){
-                haveChars[s[start]]--;
-                if(haveChars[s[start]] < needChars[s[start]]){haveCount--;}
+        while(matchGoal === matchCurr){
+            let currSlice = s.slice(start, curr+1);
+            // console.log(currSlice);
+            shortest = shortest.length < currSlice.length && shortest.length !== 0 ? shortest : currSlice;
+            if(wants[s[start]]){
+                if(wants[s[start]] === have[s[start]]){
+                    matchCurr--;
+                }
+                have[s[start]]--;
             }
             start++;
         }
-        currIndex++;
+        curr++;
     }
-    return minString;
+    return shortest;
 };
