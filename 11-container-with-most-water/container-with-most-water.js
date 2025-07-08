@@ -3,14 +3,20 @@
  * @return {number}
  */
 var maxArea = function(height) {
-    let left = 0; right = height.length-1, best = -1;
+    let left = 0;
+    let right = height.length-1;
+    let maxStorage = 0;
     while(left < right){
-        let length = right - left;
-        let currHeight = Math.min(height[left], height[right]);
-        let area = length * currHeight;
-        best = best > area ? best : area;
-        if(height[left] > height[right]){right--;}
-        else{left++}
+        let currArea = (right-left) * Math.min(height[left], height[right]);
+        if(maxStorage < currArea){
+            maxStorage = currArea;
+        }
+        if(height[left] < height[right]){
+            left++;
+        }
+        else{
+            right--;
+        }
     }
-    return best;
+    return maxStorage;
 };
