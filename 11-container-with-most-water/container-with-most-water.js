@@ -3,20 +3,17 @@
  * @return {number}
  */
 var maxArea = function(height) {
-    let left = 0;
-    let right = height.length-1;
-    let maxStorage = 0;
+    let left = 0; let right = height.length-1;
+    let maxWater = 0;
     while(left < right){
-        let currArea = (right-left) * Math.min(height[left], height[right]);
-        if(maxStorage < currArea){
-            maxStorage = currArea;
-        }
-        if(height[left] < height[right]){
-            left++;
-        }
-        else{
+        let minHeight = Math.min(height[left], height[right]);
+        let length = right-left;
+        let currAmountOfWater = minHeight * length;
+        maxWater = currAmountOfWater > maxWater ? currAmountOfWater : maxWater;
+        if(height[right] < height[left]){
             right--;
         }
+        else{left++;}
     }
-    return maxStorage;
+    return maxWater;
 };
