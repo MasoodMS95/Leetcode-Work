@@ -4,18 +4,14 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    if(nums.length === 2){
-        return nums[0] + nums[1] === target ? [0,1] : [];
+    let lookup = {};
+    for(x in nums){
+        lookup[nums[x]] = x
     }
-    sortedNums = nums.toSorted((a,b)=>a-b)
-    let left = 0; right = nums.length-1;
-    while(left < right){
-        currValue = sortedNums[left] + sortedNums[right]; 
-        if(currValue === target){
-            if(sortedNums[left] === sortedNums[right]){return [nums.indexOf(sortedNums[left]), nums.indexOf(sortedNums[right], nums.indexOf(sortedNums[right])+1)];}
-            return [nums.indexOf(sortedNums[left]), nums.indexOf(sortedNums[right])];
+
+    for(x = 0; x < nums.length; x++){
+        if(lookup[target - nums[x]] && x !== parseInt(lookup[target - nums[x]])){
+            return [x, parseInt(lookup[target-nums[x]])]
         }
-        else if (currValue < target){left++;}
-        else{right--;}
     }
 };
