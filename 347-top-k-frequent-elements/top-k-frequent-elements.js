@@ -14,6 +14,4 @@ var topKFrequent = function(nums, k) {
     })
     
     return sortedByFrequency.slice(0,k).map(Number);
-    
-    return frequency;
 };
