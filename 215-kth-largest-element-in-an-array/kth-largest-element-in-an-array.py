@@ -6,5 +6,5 @@ class Solution:
             heapq.heappush(heap, num)
             if(len(heap) > k):
                 heapq.heappop(heap)
+            
         return heap[len(heap) - k]
-        
