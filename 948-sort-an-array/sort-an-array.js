@@ -3,38 +3,39 @@
  * @return {number[]}
  */
 var sortArray = function(nums) {
-    if(nums.length <= 1){
-        return nums
+    if(nums.length === 1){
+        return nums;
     }
-    let middle = Math.min(nums.length/2);
-    let left = nums.slice(0, middle);
-    let right = nums.slice(middle, nums.length);
+    let mid = Math.floor(nums.length / 2);
+    let leftArr = nums.slice(0, mid);
+    let rightArr = nums.slice(mid, nums.length);
 
-    let sortedLeft = sortArray(left);
-    let sortedRight = sortArray(right);
-    
-    let merge = (leftArr, rightArr)=>{
-        let leftArrIndex = 0, rightArrIndex = 0;
-        let sorted = [];
-        while(leftArrIndex < leftArr.length && rightArrIndex < rightArr.length){
-            if(leftArr[leftArrIndex] < rightArr[rightArrIndex]){
-                sorted.push(leftArr[leftArrIndex]);
-                leftArrIndex++;
-            }
-            else{
-                sorted.push(rightArr[rightArrIndex]);
-                rightArrIndex++;
-            }
+    let sortedLeftArr = sortArray(leftArr);
+    let sortedRightArr = sortArray(rightArr);
+
+    let mergedSortedArray = [];
+    let lIndex = 0;
+    let rIndex = 0;
+
+    while(lIndex < sortedLeftArr.length && rIndex < sortedRightArr.length){
+        let leftElm = sortedLeftArr[lIndex];
+        let rightElm = sortedRightArr[rIndex];
+        if(leftElm < rightElm){
+            mergedSortedArray.push(leftElm);
+            lIndex++;
         }
-        while(leftArrIndex < leftArr.length){
-            sorted.push(leftArr[leftArrIndex]);
-            leftArrIndex++;
+        else{
+            mergedSortedArray.push(rightElm);
+            rIndex++;
         }
-        while(rightArrIndex < rightArr.length){
-            sorted.push(rightArr[rightArrIndex]);
-            rightArrIndex++;
-        }
-        return sorted;
     }
-    return merge(sortedLeft, sortedRight);
+    while(lIndex < sortedLeftArr.length){
+        mergedSortedArray.push(sortedLeftArr[lIndex]);
+        lIndex++;
+    }
+    while(rIndex < sortedRightArr.length){
+        mergedSortedArray.push(sortedRightArr[rIndex])
+        rIndex++;
+    }
+    return mergedSortedArray;
 };
