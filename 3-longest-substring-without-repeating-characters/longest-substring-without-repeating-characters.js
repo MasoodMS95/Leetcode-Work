@@ -6,32 +6,18 @@ var lengthOfLongestSubstring = function(s) {
     if(s.length === 0){
         return 0;
     }
-    if(s.length === 1){
-        return 1;
-    }
-    if(s.length === 2){
-        if(s[0] === s[1]){
-            return 1;
+    let longest = 1;
+    let lIndex = 0;
+    let contains = new Set();
+    contains.add(s[lIndex]);
+    for(let x = 1; x < s.length; x++){
+        while(contains.has(s[x])){
+            contains.delete(s[lIndex]);
+            lIndex++;
         }
-        return 2;
+        contains.add(s[x]);
+        longest = contains.size > longest ? contains.size : longest;
     }
 
-    let start = 0;
-    let end = 1;
-    let longestSubString = 0;
-    let seen = new Set();
-    seen.add(s[start])
-    while(end < s.length){
-        while(seen.has(s[end])){
-            seen.delete(s[start]);
-            start++;
-        }
-        seen.add(s[end]);
-        let currLen = (end - start) + 1;
-        if(currLen > longestSubString){
-            longestSubString = currLen;
-        }
-        end++;
-    }
-    return longestSubString;
+    return longest;
 };
