@@ -19,11 +19,9 @@ var levelOrder = function(root) {
         let currLevelSize = queue.length;
         for(let x = 0; x < currLevelSize; x++){
             let currNode = queue.shift();
-            if(currNode){
-                level.push(currNode.val);
-                if(currNode.left){queue.push(currNode.left);}
-                if(currNode.right){queue.push(currNode.right);}
-            }
+            level.push(currNode.val);
+            if(currNode.left){queue.push(currNode.left);}
+            if(currNode.right){queue.push(currNode.right);}
         }
         order.push(level);
     }
