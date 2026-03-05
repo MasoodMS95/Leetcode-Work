@@ -17,7 +17,6 @@ var levelOrder = function(root) {
     while(queue.length){
         let level = [];
         let currLevelSize = queue.length;
-        console.log(`Processing queue: ${queue}\nCurrent size: ${currLevelSize}`)
         for(let x = 0; x < currLevelSize; x++){
             let currNode = queue.shift();
             if(currNode){
