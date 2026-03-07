@@ -4,16 +4,19 @@
  */
 var isValid = function(s) {
     let stack = [];
-    let opens = ['(', '{', '['];
-    let closures = [')', '}', ']'];
-    let indices = {}
+    let opens = {
+        ')': '(', 
+        '}': "{", 
+        ']': '['
+    }
     for(let char of s){
-        if(opens.includes(char)){
+        if(!opens[char]){
             stack.push(char);
         }
         else{
             let lifo = stack.pop();
-            if(opens.indexOf(lifo) !== closures.indexOf(char)){
+            let opposite = opens[char];
+            if(lifo !== opposite){
                 return false;
             }
         }
