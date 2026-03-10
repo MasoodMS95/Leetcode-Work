@@ -12,7 +12,7 @@ var numIslands = function(grid) {
         let queue = [[row,col]];
         let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
         while(queue.length){
-            let currSpot = queue.pop();
+            let currSpot = queue.shift();
             let r = currSpot[0];
             let c = currSpot[1];
                 for(let direction of directions){
