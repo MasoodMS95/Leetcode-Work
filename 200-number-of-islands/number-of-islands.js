@@ -3,38 +3,35 @@
  * @return {number}
  */
 var numIslands = function(grid) {
+    var visited = new Set();
     let islands = 0;
-    let visited = new Set();
-    let rows = grid.length;
-    let cols = grid[0].length;
+    let maxRows = grid.length;
+    let maxCols = grid[0].length;
 
-    var bfs = function(row, col){
-        let queue = [[row, col]];
-        visited.add((`${row}, ${col}`));
-        let directions = [[0, 1], [1, 0], [-1, 0], [0, -1]];
-        while(queue.length > 0){
-            let poppedLoc = queue.shift();
-            let r = poppedLoc[0], c = poppedLoc[1]
-            for(direction of directions){
-                let neighborRow = r + Number(direction[0])
-                let neighborCol = c + Number(direction[1])
-                if(grid[neighborRow] &&
-                    grid[neighborRow][neighborCol] &&
-                    grid[neighborRow][neighborCol] === "1" &&
-                    !visited.has((`${neighborRow}, ${neighborCol}`))
-                ){
-                    visited.add((`${neighborRow}, ${neighborCol}`));
-                    queue.push([neighborRow, neighborCol])
+    let visitNeighbors = (row, col) => {
+        let queue = [[row,col]];
+        let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+        while(queue.length){
+            let currSpot = queue.pop();
+            let r = currSpot[0];
+            let c = currSpot[1];
+                for(let direction of directions){
+                    let neighborR = direction[0] + r;
+                    let neighborC = direction[1] + c;
+                    if(!visited.has(`${neighborR}, ${neighborC}`) && grid[neighborR] && grid[neighborR][neighborC] && grid[neighborR][neighborC] === '1'){
+                        visited.add(`${neighborR}, ${neighborC}`);
+                        queue.push([neighborR, neighborC])
                 }
             }
         }
     }
 
-    for(let i = 0; i < rows; i++){
-        for(let j = 0; j < cols; j++){
-            if(grid[i][j] === "1" && !visited.has((`${i}, ${j}`))){
-                    islands++;
-                    bfs(i, j);
+    for(let i = 0; i < maxRows; i++){
+        for(let j = 0; j < maxCols; j++){
+            if(!visited.has(`${i}, ${j}`) && grid[i][j] === '1'){
+                visited.add(`${i}, ${j}`);
+                islands++;
+                visitNeighbors(i, j);
             }
         }
     }
