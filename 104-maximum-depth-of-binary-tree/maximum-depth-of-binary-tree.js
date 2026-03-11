@@ -11,8 +11,16 @@
  * @return {number}
  */
 var maxDepth = function(root) {
-    if(!root){return 0;}
-    let leftDepthMax = maxDepth(root.left);
-    let rightDepthMax = maxDepth(root.right);
-    return 1 + Math.max(leftDepthMax, rightDepthMax);
+    if(!root){
+        return 0;
+    }
+    let level = 1;
+    let lChildDepth = 1, rChildDepth = 1;
+    if(root.left){
+        lChildDepth = level + maxDepth(root.left);
+    }
+    if(root.right){
+        rChildDepth = level + maxDepth(root.right);
+    }
+    return Math.max(lChildDepth, rChildDepth)
 };
