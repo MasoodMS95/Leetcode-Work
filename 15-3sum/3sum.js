@@ -16,8 +16,10 @@ var threeSum = function(nums) {
                 threeSums.push([nums[left], nums[start], nums[right]]);
                 while(nums[left] === nums[left+1]) left++;
                 while(nums[right] === nums[right-1]) right--;
+                left++;
+                right--;
             }
-            if(currValue > 0){
+            else if(currValue > 0){
                 right--;
             }
             else{
