@@ -3,37 +3,30 @@
  * @return {number}
  */
 var numIslands = function(grid) {
-    var visited = new Set();
-    let islands = 0;
-    let maxRows = grid.length;
-    let maxCols = grid[0].length;
+    let numIslands = 0;
+    var dfs = (row, col) => {
+        if( row < 0 ||
+            col < 0 || 
+            row >= grid.length ||
+            col >= grid[0].length ||
+            grid[row][col] === '0'
+            ){
+                return;
+            }
+        grid[row][col] = '0';
+        dfs(row+1, col);
+        dfs(row-1, col);
+        dfs(row, col+1);
+        dfs(row, col-1);
+    }
 
-    let visitNeighbors = (row, col) => {
-        let queue = [[row,col]];
-        let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-        while(queue.length){
-            let currSpot = queue.shift();
-            let r = currSpot[0];
-            let c = currSpot[1];
-                for(let direction of directions){
-                    let neighborR = direction[0] + r;
-                    let neighborC = direction[1] + c;
-                    if(!visited.has(`${neighborR}, ${neighborC}`) && grid[neighborR] && grid[neighborR][neighborC] && grid[neighborR][neighborC] === '1'){
-                        visited.add(`${neighborR}, ${neighborC}`);
-                        queue.push([neighborR, neighborC])
-                }
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[0].length; j++){
+            if(grid[i][j] === '1'){
+                numIslands++;
+                dfs(i, j);
             }
         }
     }
-
-    for(let i = 0; i < maxRows; i++){
-        for(let j = 0; j < maxCols; j++){
-            if(!visited.has(`${i}, ${j}`) && grid[i][j] === '1'){
-                visited.add(`${i}, ${j}`);
-                islands++;
-                visitNeighbors(i, j);
-            }
-        }
-    }
-    return islands;
+    return numIslands;
 };
