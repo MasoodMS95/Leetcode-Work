@@ -6,12 +6,10 @@ var climbStairs = function(n) {
     if(n <= 2){
         return n;
     }
-    let total = 0;
-    let sequence = [0, 1 ,2];
-    for(let i = 3; i <= n; i++){
-        let oneStep = sequence[i-1];
-        let twoSteps = sequence[i-2];
-        sequence[i] = oneStep + twoSteps;
+    let steps = [0, 1, 2];
+    for(let x = 3; x <= n; x++){
+        steps[x] = steps[x-1] + steps[x-2];
     }
-    return sequence[n];
+    console.log(steps);
+    return steps[steps.length-1];
 };
