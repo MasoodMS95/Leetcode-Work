@@ -3,16 +3,21 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    let visited = new Set();
-    let left = 0;
     let longest = 0;
+    let left = 0;
+    let freqCount = {};
     for(let right = 0; right < s.length; right++){
-        while(visited.has(s[right])){
-            visited.delete(s[left]);
+        freqCount[s[right]] = (freqCount[s[right]] || 0) + 1;
+        while(freqCount[s[right]] > 1){
+            if(freqCount[s[left]] > 1){
+                freqCount[s[left]]--;
+            }
+            else{
+                delete freqCount[s[left]];
+            }
             left++;
         }
-        visited.add(s[right])
-        longest = Math.max(longest, right-left + 1)
+        longest = Math.max(longest, right - left + 1);
     }
     return longest;
 };
