@@ -21,15 +21,15 @@ class Solution:
                 or y >= len(grid[0])
                 or grid[x][y] == '0'):
                     continue
-                if(f"({x}, {y})" not in visitedIslands):
-                    visitedIslands.add(f"({x}, {y})")
+                if((x, y) not in visitedIslands):
+                    visitedIslands.add((x, y))
                     for xAdd, yAdd in checkRoutes:
                         queue.append([x + xAdd, y + yAdd])
                 
 
         for i in range(len(grid)):
             for j in range(len(grid[0])):
-                if(f"({i}, {j})" not in visitedIslands):
+                if((i, j) not in visitedIslands):
                     if(grid[i][j] == "1"):
                         numIslands += 1
                         bfs(i,j)
