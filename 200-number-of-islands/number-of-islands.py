@@ -32,5 +32,5 @@ class Solution:
                 if(f"({i}, {j})" not in visitedIslands):
                     if(grid[i][j] == "1"):
                         numIslands += 1
-                    bfs(i,j)
+                        bfs(i,j)
         return numIslands
