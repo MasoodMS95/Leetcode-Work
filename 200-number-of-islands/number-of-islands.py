@@ -3,7 +3,7 @@ class Solution:
         visitedIslands = set()
         numIslands = 0
 
-        def dfs(i,j):
+        def bfs(i,j):
             queue = [[i,j]]
             checkRoutes = [
                 [1, 0],
@@ -32,5 +32,5 @@ class Solution:
                 if(f"({i}, {j})" not in visitedIslands):
                     if(grid[i][j] == "1"):
                         numIslands += 1
-                    dfs(i,j)
+                    bfs(i,j)
         return numIslands
