@@ -3,12 +3,10 @@ class Solution:
         dp = [False] * (len(s) + 1)
         dp[0] = True
 
-        for char in range(len(s) + 1):
-            for lastValid in range(len(dp)):
-                if(dp[lastValid]) == True:
-                    currWord = s[lastValid: char]
-                    print(currWord)
+        for end in range(len(s) + 1):
+            for start in range(0, end):
+                if(dp[start]) == True:
+                    currWord = s[start: end]
                     if(currWord in wordDict):
-                        dp[char] = True
-        print(dp)
+                        dp[end] = True
         return dp[-1]
